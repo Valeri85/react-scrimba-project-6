@@ -2,17 +2,18 @@ import React, { useEffect, useState } from 'react';
 import Die from './components/Die.jsx';
 import { nanoid } from 'nanoid';
 import Confetti from 'react-confetti';
+import Step from './components/Step.jsx';
 
 function App() {
 	const [dice, setDice] = useState(allNewDice());
 	const [tenzies, setTenzies] = useState(false);
+	const [step, setStep] = useState(0);
 
 	useEffect(
 		_ => {
 			const allHeld = dice.every(die => die.isHeld);
 			const firstValue = dice[0].value;
 			const allSameValue = dice.every(die => die.value === firstValue);
-
 			if (allHeld && allSameValue) setTenzies(true);
 		},
 		[dice]
@@ -32,9 +33,11 @@ function App() {
 
 	function rollDice() {
 		setDice(oldDice => oldDice.map(die => (die.isHeld ? die : generateNewDie())));
+		setStep(prevStep => prevStep + 1);
 		if (tenzies) {
 			setTenzies(false);
 			setDice(allNewDice());
+			setStep(0);
 		}
 	}
 
@@ -50,6 +53,7 @@ function App() {
 
 	return (
 		<main className="main">
+			<Step step={step} />
 			{tenzies && <Confetti />}
 			<h1 className="main__title">Tenzies</h1>
 			<p className="main__text">
