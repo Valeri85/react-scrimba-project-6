@@ -1,0 +1,179 @@
+:root {
+	--color-bg-body: rgba(229, 229, 229, 1);
+	--color-bg-frame: rgba(11, 36, 52, 1);
+	--color-bg-app: rgba(245, 245, 245, 1);
+	--color-bg-die: rgba(255, 255, 255, 1);
+	--color-bg-die-selected: rgba(89, 227, 145, 1);
+	--color-bg-main-button: rgba(80, 53, 255, 1);
+
+	--color-font-primary: rgba(43, 40, 58, 1);
+	--color-font-secondary: rgba(74, 78, 116, 1);
+	--color-font-main-button: rgba(255, 255, 255, 1);
+
+	--shadow-main-button: inset 5px 5px 10px -3px rgba(0, 0, 0, 0.7);
+
+	--font-weight-400: 400;
+	--font-weight-700: 700;
+
+	--font-family-primary: 'Karla', sans-serif;
+	--font-family-secondary: 'Inter', sans-serif;
+}
+
+/* Box sizing rules */
+*,
+*::before,
+*::after {
+	box-sizing: border-box;
+}
+
+/* Set core root defaults */
+html {
+	font-family: var(--font-family-primary);
+	font-weight: var(--font-weight-700);
+	font-size: 62.5%;
+	/*
+    1rem = 16px
+    1rem * 62.5% = 10px
+    If all font sizes = 62.5% than rem * 0.625
+    1rem = 10px; 0.1rem = 1px; 2.4rem = 24px...      
+    */
+	color: var(--color-font-primary);
+	scroll-behavior: smooth;
+}
+
+/* Set core body defaults */
+body {
+	width: 100%;
+	min-height: 100vh;
+	font-size: 1.8rem;
+	line-height: 1.6;
+	text-rendering: optimizeSpeed;
+}
+
+/* Remove default margin and paddings */
+body,
+h1,
+h2,
+p,
+button {
+	margin: 0;
+	padding: 0;
+}
+
+/* Make images easier to work with */
+img {
+	display: block;
+	max-width: 100%;
+	height: auto;
+}
+
+/* Remove all animations, transitions and smooth scroll for people that prefer not to see them */
+@media (prefers-reduced-motion: reduce) {
+	html:focus-within {
+		scroll-behavior: auto;
+	}
+
+	*,
+	*::before,
+	*::after {
+		animation-duration: 0.01ms !important;
+		animation-iteration-count: 1 !important;
+		transition-duration: 0.01ms !important;
+		scroll-behavior: auto !important;
+	}
+}
+
+/* inter-regular - latin */
+@font-face {
+	font-family: 'Inter';
+	font-display: swap;
+	font-style: normal;
+	font-weight: 400;
+	src: local(''), url('../assets/fonts/inter-v8-latin-regular.woff2') format('woff2'),
+		url('../assets/fonts/inter-v8-latin-regular.woff') format('woff');
+}
+
+/* karla-700 - latin */
+@font-face {
+	font-family: 'Karla';
+	font-display: swap;
+	font-style: normal;
+	font-weight: 700;
+	src: local(''), url('../assets/fonts/karla-v21-latin-700.woff2') format('woff2'),
+		url('../assets/fonts/karla-v21-latin-700.woff') format('woff');
+}
+
+body {
+	display: grid;
+	place-content: center;
+	background-color: var(--color-bg-body);
+	text-align: center;
+}
+
+#root {
+	max-width: min(100%, 30em);
+	margin-inline: auto;
+	padding: 2em 1em;
+	background-color: var(--color-bg-frame);
+}
+
+.main {
+	display: flex;
+	flex-direction: column;
+	padding: 3em;
+	background-color: var(--color-bg-app);
+	border-radius: 0.5em;
+}
+
+.main__text {
+	padding-inline: 1.75em;
+	line-height: 1.2;
+	font-family: var(--font-family-secondary);
+	font-weight: var(--font-weight-400);
+	color: var(--color-font-secondary);
+}
+
+.main__buttons {
+	display: grid;
+	grid-template: auto auto / repeat(5, 1fr);
+	gap: 1em;
+	margin-block: 2em;
+}
+
+.button {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	width: 2em;
+	height: 2em;
+	padding: 0.35em 0;
+	background-color: var(--color-bg-die);
+	border-radius: 0.35em;
+	box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.15);
+	border: 0;
+	font-family: inherit;
+	font-size: 3rem;
+	font-weight: inherit;
+	color: inherit;
+	cursor: pointer;
+}
+
+.main__button {
+	align-self: center;
+	padding: 0.5em 3.5em;
+	background-color: var(--color-bg-main-button);
+	color: var(--color-font-main-button);
+	white-space: nowrap;
+}
+
+.main__button:focus {
+	outline: none;
+}
+
+.main__button:active {
+	box-shadow: var(--shadow-main-button);
+}
+
+.isHeld {
+	background-color: var(--color-bg-die-selected);
+}
