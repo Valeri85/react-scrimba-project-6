@@ -125,8 +125,11 @@ body {
 	border-radius: 0.5em;
 }
 
-.main__step {
-	align-self: end;
+.main__counters {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	margin-bottom: 1em;
 }
 
 .main__text {
