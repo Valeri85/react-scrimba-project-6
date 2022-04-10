@@ -52,11 +52,25 @@ function App() {
 		return newDice;
 	}
 
+	function bestStep() {
+		localStorage.getItem('step') ?? localStorage.setItem('step', JSON.stringify(step));
+		step < JSON.parse(localStorage.getItem('step')) &&
+			localStorage.setItem('step', JSON.stringify(step));
+	}
+
+	function bestTime() {
+		localStorage.getItem('time') ?? localStorage.setItem('time', JSON.stringify(time));
+		time < JSON.parse(localStorage.getItem('time')) &&
+			localStorage.setItem('time', JSON.stringify(time));
+	}
+
 	function rollDice() {
 		setDice(oldDice => oldDice.map(die => (die.isHeld ? die : generateNewDie())));
 		setStep(prevStep => prevStep + 1);
 		setIsActive(true);
 		if (tenzies) {
+			bestStep();
+			bestTime();
 			setTenzies(false);
 			setDice(allNewDice());
 			setStep(0);
@@ -80,6 +94,32 @@ function App() {
 			<div className="main__counters">
 				<Timer timer={time} />
 				<Step stepper={step} />
+				<time
+					className="main__counters-best-time"
+					dateTime={`PT0H${[
+						Math.floor(JSON.parse(localStorage.getItem('time')) / 60000) % 60,
+					].slice(-2)}M${[
+						Math.floor(JSON.parse(localStorage.getItem('time')) / 1000) % 60,
+					].slice(-2)}.${[
+						Math.floor(JSON.parse(localStorage.getItem('time')) / 10) % 100,
+					].slice(-2)}S`}
+				>
+					Best Time:{' '}
+					{`0${Math.floor(JSON.parse(localStorage.getItem('time')) / 60000) % 60}`.slice(
+						-2
+					)}
+					:
+					{`0${Math.floor(JSON.parse(localStorage.getItem('time')) / 1000) % 60}`.slice(
+						-2
+					)}
+					:
+					{`0${Math.floor(JSON.parse(localStorage.getItem('time')) / 10) % 100}`.slice(
+						-2
+					)}
+				</time>
+				<div className="main__counters-best-step">
+					Best Step: {JSON.parse(localStorage.getItem('step')) ?? 0}
+				</div>
 			</div>
 			<h1 className="main__title">Tenzies</h1>
 			<p className="main__text">

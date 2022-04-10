@@ -9,6 +9,7 @@
 	--color-font-primary: rgba(43, 40, 58, 1);
 	--color-font-secondary: rgba(74, 78, 116, 1);
 	--color-font-main-button: rgba(255, 255, 255, 1);
+	--color-font-records: rgba(80, 53, 255, 1);
 
 	--shadow-main-button: inset 5px 5px 10px -3px rgba(0, 0, 0, 0.7);
 
@@ -126,10 +127,39 @@ body {
 }
 
 .main__counters {
-	display: flex;
-	align-items: center;
-	justify-content: space-between;
+	display: grid;
+	grid:
+		'timer stepper'
+		'best-time best-step'
+		/ 50% 50%;
 	margin-bottom: 1em;
+	justify-items: start;
+}
+
+.main__counters-best-step,
+.main__counters-best-time {
+	color: var(--color-font-records);
+}
+
+.main__counters-step,
+.main__counters-best-step {
+	justify-self: end;
+}
+
+.main__counters-timer {
+	grid-area: timer;
+}
+
+.main__counters-step {
+	grid-area: stepper;
+}
+
+.main__counters-best-step {
+	grid-area: best-step;
+}
+
+.main__counters-best-time {
+	grid-area: best-time;
 }
 
 .main__text {
@@ -187,7 +217,7 @@ body {
 
 @media screen and (max-width: 320px) {
 	body {
-		font-size: 1.1rem;
+		font-size: 1.125rem;
 	}
 
 	.main {
